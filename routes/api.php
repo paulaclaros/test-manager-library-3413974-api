@@ -56,7 +56,7 @@ Route::prefix('api/v1')->group(function () {
             Route::post('/books', [BookController::class, 'store']);
             Route::put('/books/{id}', [BookController::class, 'update']);
             Route::delete('/books/{id}', [BookController::class, 'destroy']);
-            Route::put('/books/{id}/cover', [BookController::class, 'uploadCover']);
+            Route::match(['put', 'post'], '/books/{id}/cover', [BookController::class, 'uploadCover']);
             Route::delete('/books/{id}/cover', [BookController::class, 'deleteCover']);
 
             // Reportes

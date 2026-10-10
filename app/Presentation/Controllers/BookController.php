@@ -113,7 +113,7 @@ final class BookController
 
     public function uploadCover(Request $request, string $id): JsonResponse
     {
-        $file = $request->file('file');
+        $file = $request->file('file') ?? $request->file('cover');
         if ($file === null || !$file->isValid()) {
             throw new ValidationException('No se envió un archivo de portada válido.', [
                 ['field' => 'file', 'issue' => 'archivo requerido']
