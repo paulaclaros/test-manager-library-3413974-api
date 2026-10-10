@@ -50,7 +50,9 @@ Route::prefix('api/v1')->group(function () {
         // Rutas exclusivas para admin
         Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
             // Usuarios / Bibliotecarios
+            Route::get('/users', [AuthController::class, 'listUsers']);
             Route::post('/users', [AuthController::class, 'registerUser']);
+            Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
 
             // Gestión de libros
             Route::post('/books', [BookController::class, 'store']);

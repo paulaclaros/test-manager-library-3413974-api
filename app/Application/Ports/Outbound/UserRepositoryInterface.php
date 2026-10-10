@@ -14,4 +14,9 @@ interface UserRepositoryInterface
     public function findByUsername(Username $username): ?User;
 
     public function save(User $user): void;
+
+    /** @return User[] */
+    public function findAll(): array;
+
+    public function delete(string $id): void;
 }

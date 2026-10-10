@@ -29,4 +29,16 @@ final class EloquentUserRepository implements UserRepositoryInterface
         $model = UserMapper::toModel($user);
         $model->save();
     }
+
+    /** @return User[] */
+    public function findAll(): array
+    {
+        $models = UserModel::all();
+        return $models->map(fn($m) => UserMapper::toDomain($m))->all();
+    }
+
+    public function delete(string $id): void
+    {
+        UserModel::destroy($id);
+    }
 }
