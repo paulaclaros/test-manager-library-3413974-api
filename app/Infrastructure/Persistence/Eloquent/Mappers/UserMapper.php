@@ -17,7 +17,8 @@ final class UserMapper
             (string) $model->id,
             Username::fromString((string) $model->username),
             (string) $model->password_hash,
-            new Role((string) $model->role)
+            new Role((string) $model->role),
+            (bool) ($model->is_active ?? true)
         );
     }
 
@@ -28,6 +29,7 @@ final class UserMapper
         $model->username = $entity->username()->value();
         $model->password_hash = $entity->passwordHash();
         $model->role = $entity->role()->value();
+        $model->is_active = $entity->isActive();
 
         return $model;
     }

@@ -34,6 +34,10 @@ final class LoginService
             throw new UnauthorizedException('Credenciales inválidas.');
         }
 
+        if (!$user->isActive()) {
+            throw new UnauthorizedException('El usuario se encuentra deshabilitado.');
+        }
+
         if (!$this->passwordHasher->verify($rawPassword, $user->passwordHash())) {
             throw new UnauthorizedException('Credenciales inválidas.');
         }

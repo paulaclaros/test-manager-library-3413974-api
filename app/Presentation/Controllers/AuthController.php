@@ -50,9 +50,40 @@ final class AuthController
             'id' => $u->id(),
             'username' => $u->username()->value(),
             'role' => $u->role()->value(),
+            'is_active' => $u->isActive(),
         ], $users);
 
         return new JsonResponse(['items' => $items, 'total' => count($items)], 200);
+    }
+
+    public function toggleUserStatus(string $id): JsonResponse
+    {
+        $user = $this->userRepository->findById($id);
+        if ($user === null) {
+            return new JsonResponse(['code' => 'NOT_FOUND', 'message' => 'Usuario no encontrado.'], 404);
+        }
+
+        if (strtolower($user->username()->value()) === 'admin') {
+            return new JsonResponse([
+                'code' => 'CANNOT_MODIFY_ROOT_ADMIN',
+                'message' => 'No es posible modificar el estado del usuario administrador principal.',
+            ], 422);
+        }
+
+        if ($user->isActive()) {
+            $user->disable();
+        } else {
+            $user->enable();
+        }
+
+        $this->userRepository->save($user);
+
+        return new JsonResponse([
+            'id' => $user->id(),
+            'username' => $user->username()->value(),
+            'role' => $user->role()->value(),
+            'is_active' => $user->isActive(),
+        ], 200);
     }
 
     public function deleteUser(string $id): JsonResponse

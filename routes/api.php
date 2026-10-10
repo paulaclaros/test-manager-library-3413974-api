@@ -52,6 +52,7 @@ Route::prefix('api/v1')->group(function () {
             // Usuarios / Bibliotecarios
             Route::get('/users', [AuthController::class, 'listUsers']);
             Route::post('/users', [AuthController::class, 'registerUser']);
+            Route::patch('/users/{id}/toggle-status', [AuthController::class, 'toggleUserStatus']);
             Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
 
             // Gestión de libros

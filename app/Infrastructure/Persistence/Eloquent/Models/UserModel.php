@@ -19,6 +19,11 @@ final class UserModel extends Model
         'username',
         'password_hash',
         'role',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     protected $hidden = [

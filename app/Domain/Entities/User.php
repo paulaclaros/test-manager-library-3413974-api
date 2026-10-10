@@ -13,7 +13,8 @@ final class User
         private readonly string $id,
         private readonly Username $username,
         private readonly string $passwordHash,
-        private readonly Role $role
+        private readonly Role $role,
+        private bool $isActive = true
     ) {}
 
     public function id(): string
@@ -34,5 +35,20 @@ final class User
     public function role(): Role
     {
         return $this->role;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    public function disable(): void
+    {
+        $this->isActive = false;
+    }
+
+    public function enable(): void
+    {
+        $this->isActive = true;
     }
 }
